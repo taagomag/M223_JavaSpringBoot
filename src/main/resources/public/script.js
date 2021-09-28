@@ -26,6 +26,29 @@ const createEntry = (e) => {
     });
 };
 
+const deleteEntry = (id) => {
+    fetch(`${URL}/entries/${id}`, {
+        method: 'DELETE'
+    }).then((result) => {
+        indexEntries();
+    });
+};
+
+const updateEntry = (entry) => {
+    fetch(`${URL}/entries`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(entry)
+    }).then((result) => {
+        result.json().then((entry) => {
+            entries.push(entry);
+            renderEntries();
+        });
+    });
+}
+
 const indexEntries = () => {
     fetch(`${URL}/entries`, {
         method: 'GET'
@@ -56,8 +79,15 @@ const renderEntries = () => {
     });
 };
 
+
 document.addEventListener('DOMContentLoaded', function(){
     const createEntryForm = document.querySelector('#createEntryForm');
     createEntryForm.addEventListener('submit', createEntry);
+    indexEntries();
+});
+
+document.addEventListener('DOMContentLoaded', function(){
+    const updateEntryForm = document.querySelector('#updateEntryForm');
+    updateEntryForm.addEventListener('change', updateEntry);
     indexEntries();
 });
