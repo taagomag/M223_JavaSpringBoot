@@ -9,7 +9,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     private UserService userService;
 
@@ -40,4 +40,5 @@ public class UserController {
     public User updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
 }
